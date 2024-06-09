@@ -1,5 +1,4 @@
 import React from 'react';
-import Carousel from "../components/Carousel";
 import { usePages } from '@src/services/PagesContext';
 
 const Items = [
