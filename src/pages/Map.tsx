@@ -5,21 +5,8 @@ import { MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet';
 import { usePages } from '@src/services/PagesContext';
 import { useMapDetails } from '@src/services/MapDetailsContext';
 import HaltePopUp from '@src/components/HaltePopUp';
-
-interface Shuttle {
-  loaded: boolean;
-  id : string;
-  coordinates: {
-    lat: number;
-    lng: number;
-  };
-  halte: string;
-  countMhs: number;
-  route: String;
-  waitingTime: number;
-  arriveTime: string;
-  error: any;
-}
+import BusPopUp from '@src/components/BusPopUp';
+import { Shuttle } from '@src/types/Shuttle';
 
 interface Halte {
   halte: string;
@@ -44,7 +31,7 @@ const Map = () => {
   const iconHalteHighlighted = L.icon({
     iconUrl: "/images/iconHalteHighlighted.png",
     iconSize: [20, 30],
-  })
+  });
   
   const iconUser = L.icon({
     iconUrl: "/images/iconUser.png",
@@ -64,7 +51,7 @@ const Map = () => {
   const handleMarkerClick = (marker: Halte) => {
     setIsButtonClicked(true);
     setSelectedHalte(marker);
-  }
+  };
 
   return (
     showMap && (
@@ -79,18 +66,26 @@ const Map = () => {
             />
 
             {location && (
-              <Marker position={location.coordinates} icon={iconUser}/>
+              <Marker position={location.coordinates} icon={iconUser} />
             )}
 
-            {shuttles.map((shuttle: Shuttle, index: number) =>  (
-              shuttle.route === "Blue" ?
-                <Marker key={`marker-${index}`} position={shuttle?.coordinates} icon={iconBlueBus} /> 
-                :
-                <Marker key={`marker-${index}`} position={shuttle?.coordinates} icon={iconGreyBus} />
+            {shuttles.map((shuttle: Shuttle, index: number) => (
+              <Marker
+                key={`marker-${index}`}
+                position={shuttle.coordinates}
+                icon={shuttle.route === "Blue" ? iconBlueBus : iconGreyBus}
+              >
+                <BusPopUp shuttle={shuttle} />
+              </Marker>
             ))}
 
             {routeMarkers.map((marker: Halte, index: number) => (
-              <Marker key={`marker-${index}`} position={marker.geoCode as LatLngTuple} icon={iconHalte} eventHandlers={{ click: () => handleMarkerClick(marker)}}/>
+              <Marker
+                key={`marker-${index}`}
+                position={marker.geoCode as LatLngTuple}
+                icon={iconHalte}
+                eventHandlers={{ click: () => handleMarkerClick(marker) }}
+              />
             ))}
 
             {selectedHalte && (
@@ -106,5 +101,3 @@ const Map = () => {
 };
 
 export default Map;
-
-

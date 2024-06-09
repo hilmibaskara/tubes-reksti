@@ -95,7 +95,7 @@ const HaltePopUp: React.FC<HaltePopUpProps> = ({ isButtonClicked, setIsButtonCli
                             </div>
                             <div className=' flex flex-column mx-1.5 w-20'>
                               <p className='font-extralight text-[#eb8d8c] text-center'>Crowd Level:</p>
-                              <p className='font-bold text-[#eb8d8c] text-center'>{shuttle.crowd} Crowded</p>
+                              <p className='font-bold text-[#eb8d8c] text-center'>{shuttle.crowd}</p>
                             </div>
                           </div>
                         </div>

@@ -1,29 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import * as turf from '@turf/turf';
-import { ref, get } from "firebase/database";
-import { useDatabase } from "@src/services/Firebase";
+import supabase from '@src/utils/supabase/supabaseClient';
 
 const MapDetailsContext = createContext();
 
 export const MapDetailsProvider = ({ children }) => {
-  // const database = useDatabase();
-
   const [location, setLocation] = useState();
-  const [shuttles, setShuttles] = useState([{
-    loaded: true,
-    id: 'shuttle1',
-    coordinates: {
-      lat: -6.890310,
-      lng: 107.610460
-    },
-    halte: 'Halte A',
-    status: 'On Time',
-    route: 'Blue',
-    waitingTime: 5,
-    arriveTime: '08:15',
-    error: null,
-    crowd: 'Low'
-  },]);
+  const [shuttles, setShuttles] = useState([]);
   const [selectedHalte, setSelectedHalte] = useState();
   const [selectedRoute, setSelectedRoute] = useState('');
 
@@ -104,73 +87,68 @@ export const MapDetailsProvider = ({ children }) => {
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
   };
 
-  const fetchShuttles = () => {
-  //   const dbShuttleDataRef = ref(database, 'shuttleData');
-  //   const dbActiveShuttleRef = ref(database, 'activeShuttle');
-  //   let shuttleDatas = {};
-  //   let shuttleIDs = {};
-  //   let activeShuttles = {};
-
-  //   Promise.all([get(dbShuttleDataRef), get(dbActiveShuttleRef)]).then(([shuttleDataSnapshot, activeShuttleSnapshot]) => {
-  //     if (shuttleDataSnapshot.exists()) {
-  //       shuttleDatas = shuttleDataSnapshot.val();
-  //       shuttleIDs = Object.keys(shuttleDatas);
-  //     }
-
-  //     if (activeShuttleSnapshot.exists()) {
-  //       activeShuttles = activeShuttleSnapshot.val();
-  //     }
-
-  //     let newShuttles = getShuttles(shuttleDatas, shuttleIDs, activeShuttles);
-  //     setShuttles(newShuttles);
-  //   }).catch((error) => {
-  //     console.error(error);
-  //   });
-  }
-
-  function getShuttles(shuttleDatas, shuttleIDs, activeShuttles) {
-    let newShuttle = [];
-
-    let j = 0;
-    for (let i = 0; i < shuttleIDs.length; i++) {
-      if (Object.keys(activeShuttles).includes(shuttleIDs[i])) {
-        newShuttle[j] = {
-          loaded: true,
-          id: shuttleIDs[i],
-          coordinates: {
-            lat: activeShuttles[shuttleIDs[i]].l[0],
-            lng: activeShuttles[shuttleIDs[i]].l[1],
-          },
-          halte: shuttleDatas[shuttleIDs[i]].halte,
-          status: shuttleDatas[shuttleIDs[i]].status,
-          route: shuttleDatas[shuttleIDs[i]].route,
-          waitingTime: 0,
-          arriveTime: '00:00',
-          error: null,
-        }
+  const fetchShuttles = async () => {
+    const busIds = [1, 2, 3];
   
-        if (selectedHalte) {
-          const waitingTime = calculateWaitingTime(newShuttle[j], selectedHalte);
-          if (waitingTime === -1) {
-            newShuttle[j].waitingTime = 0;
-            newShuttle[j].arriveTime = '--:--';
-          }
-          else {
-            const arriveTime = calculateArrivingTime(waitingTime);
-            newShuttle[j].waitingTime = waitingTime;
-            newShuttle[j].arriveTime = arriveTime;
-          }
-        }
-
-        j++;
-      }
+    // Query details for each bus
+    const detailsPromises = busIds.map(busId => 
+      supabase
+        .from('details')
+        .select('id, bus_id, lat, long, capacity')
+        .eq('bus_id', busId)
+        .order('created_at', { ascending: false })
+        .limit(1)
+    );
+  
+    // Query license_plate for each bus
+    const licensePromises = busIds.map(busId => 
+      supabase
+        .from('bus')
+        .select('id, license_plate')
+        .eq('id', busId)
+    );
+  
+    try {
+      const detailsResults = await Promise.all(detailsPromises);
+      const licenseResults = await Promise.all(licensePromises);
+  
+      const shuttles = detailsResults
+        .filter(result => result.data.length > 0) // Filter out any empty results
+        .map((result, index) => {
+          const shuttleData = result.data[0];
+          const licenseData = licenseResults[index].data[0];
+          const nearestHalte = getNearestHalte({
+            coordinates: {
+              lat: shuttleData.lat,
+              lng: shuttleData.long,
+            }
+          }, routeMarkers);
+  
+          // waitingTime = calculateWaitingTime(nearestHalte, nearestHalte)
+  
+          return {
+            id: shuttleData.id,
+            bus_id: shuttleData.bus_id,
+            license_plate: licenseData ? licenseData.license_plate : "Unknown",
+            coordinates: {
+              lat: shuttleData.lat,
+              lng: shuttleData.long,
+            },
+            countMhs: shuttleData.capacity,
+            route: nearestHalte ? nearestHalte.halte : "Unknown",
+            error: null,
+          };
+        });
+  
+      setShuttles(shuttles);
+    } catch (error) {
+      console.error('Error fetching data:', error.message);
     }
-
-    return newShuttle;
-  }
+  };
+  
 
   function getNearestHalte(location, markers) {
-    if (location === undefined) return;
+    if (!location) return null;
 
     let idx = 0;
     let distance = turf.distance(turf.point([location.coordinates.lng, location.coordinates.lat]), turf.point([markers[0].geoCode[1], markers[0].geoCode[0]]), {units: 'meters'});
@@ -227,6 +205,7 @@ export const MapDetailsProvider = ({ children }) => {
     }
 
     waitingTime = waitingTime
+    console.log("waiting", waitingTime);
     return Math.ceil(waitingTime / 60);
   }
   
@@ -263,7 +242,7 @@ export const MapDetailsProvider = ({ children }) => {
 
     return () => clearInterval(interval);
   }, [selectedHalte, selectedRoute]);
-  
+
   return (
     <MapDetailsContext.Provider value={{
         location, setLocation,
@@ -279,6 +258,6 @@ export const MapDetailsProvider = ({ children }) => {
       {children}
     </MapDetailsContext.Provider>
   );
-}
+};
 
 export const useMapDetails = () => useContext(MapDetailsContext);
