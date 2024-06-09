@@ -72,7 +72,6 @@ tubes-reksti-master/
 │   │   ├── MapDetailsContext.js
 │   │   └── PagesContext.js
 │   ├── styles/
-│   │   ├── SplashScreen.module.css
 │   │   └── global.css
 │   ├── types/
 │   │   └── Shuttle.ts
