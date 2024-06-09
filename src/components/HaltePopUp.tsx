@@ -91,11 +91,7 @@ const HaltePopUp: React.FC<HaltePopUpProps> = ({ isButtonClicked, setIsButtonCli
                           <div className='flex flex-row items-center'>
                             <div className='flex flex-column mx-1.5 w-20'>
                               <p className='font-extralight text-[#eb8d8c] text-center'>Tiba dalam</p>
-                              <p className='font-bold text-[#eb8d8c] text-center'>{shuttle.waitingTime} min(s)</p>
-                            </div>
-                            <div className=' flex flex-column mx-1.5 w-20'>
-                              <p className='font-extralight text-[#eb8d8c] text-center'>Crowd Level:</p>
-                              <p className='font-bold text-[#eb8d8c] text-center'>{shuttle.crowd}</p>
+                              <p className='font-bold text-[#eb8d8c] text-center'>{selectedHalte.wait} min(s)</p>
                             </div>
                           </div>
                         </div>

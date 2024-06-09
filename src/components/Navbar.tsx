@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { usePages } from '@src/services/PagesContext';
 import { IoMdInformationCircleOutline } from "react-icons/io";
+import { IoCaretBackCircleOutline } from "react-icons/io5";
 
 
 const Navbar = () => {
@@ -22,7 +23,8 @@ const Navbar = () => {
             <div className='flex items-center gap-2'>
               {!showMap && !showRouteMap ? (
                 <button className="absolute left-0 ml-[17px]" onClick={toggleShowMap}>
-                  <img className=" rounded-full hover:brightness-110 hover:shadow-lg" src="images/back.svg" alt="back" width={27} height={27}/>
+                  {/* <img className=" rounded-full hover:brightness-110 hover:shadow-lg" src="images/back.svg" alt="back" width={27} height={27}/> */}
+                  <IoCaretBackCircleOutline color="white" size={27}/>
                 </button>
               ) : (
                 <>

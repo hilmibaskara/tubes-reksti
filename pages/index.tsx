@@ -4,7 +4,6 @@ import Head from "next/head";
 import Navbar from "@src/components/Navbar";
 import RouteMap from "../src/pages/RouteMap";
 import AboutUs from '../src/pages/AboutUs';
-import SplashScreen from "../src/pages/SplashScreen";
 import { PagesProvider } from "@src/services/PagesContext";
 import { MapDetailsProvider } from "@src/services/MapDetailsContext";
 
@@ -17,7 +16,7 @@ export default function Home() {
         <title>RekSTI Bus Monitoring</title>
         <meta name="description" content="RekSTI Bus Monitoring" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        {/* <link rel="icon" href="/favicon.ico" /> */}
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
         <PagesProvider>

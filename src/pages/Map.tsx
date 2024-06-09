@@ -7,6 +7,8 @@ import { useMapDetails } from '@src/services/MapDetailsContext';
 import HaltePopUp from '@src/components/HaltePopUp';
 import BusPopUp from '@src/components/BusPopUp';
 import { Shuttle } from '@src/types/Shuttle';
+import { MdGpsFixed } from "react-icons/md";
+
 
 interface Halte {
   halte: string;
@@ -25,12 +27,12 @@ const Map = () => {
 
   const iconHalte = L.icon({
     iconUrl: "/images/iconHalte.png",
-    iconSize: [20, 30],
+    iconSize: [30, 30],
   });
 
   const iconHalteHighlighted = L.icon({
     iconUrl: "/images/iconHalteHighlighted.png",
-    iconSize: [20, 30],
+    iconSize: [30, 30],
   });
   
   const iconUser = L.icon({

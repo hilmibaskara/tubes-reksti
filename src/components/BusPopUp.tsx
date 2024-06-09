@@ -9,7 +9,7 @@ const BusPopUp = ({ shuttle }: { shuttle: Shuttle }) => {
         <p>Bus Plate: {shuttle.license_plate}</p>
         <p>Next Stop: {shuttle.route}</p>
         <p>Waiting time: {shuttle.waitingTime} </p>
-        <p>Capacity : {shuttle.countMhs}</p>
+        <p>Penumpang: {shuttle.countMhs}</p>
       </div>
     </Popup>
   );
