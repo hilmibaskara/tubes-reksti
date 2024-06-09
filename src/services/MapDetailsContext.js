@@ -15,16 +15,16 @@ export const MapDetailsProvider = ({ children }) => {
     { halte: 'WCO', geoCode: [-6.879793, 107.612052], nextHalteEstimate: 60, wait: 2 },
     { halte: 'Serbu Rame', geoCode: [-6.883251, 107.611274], nextHalteEstimate: 60, wait: 6 },
     { halte: 'Opiuci', geoCode: [-6.885811, 107.612611], nextHalteEstimate: 60, wait: 10 },
-    { halte: 'Pintu Utara ITB', geoCode: [-6.887737, 107.609306], nextHalteEstimate: 60, wait: 14 },
-    { halte: 'Gerbang Batan', geoCode: [-6.888668, 107.608160], nextHalteEstimate: 60, wait: 16},
-    { halte: 'Gerbang Sipil', geoCode: [-6.893580, 107.608821], nextHalteEstimate: 120, wait: 19 },
-    { halte: 'Gerbang Utama', geoCode: [-6.893182, 107.610355], nextHalteEstimate: 60, wait: 20 },
+    { halte: 'Pintu Utara', geoCode: [-6.887737, 107.609306], nextHalteEstimate: 60, wait: 14 },
+    { halte: 'Gb. Batan', geoCode: [-6.888668, 107.608160], nextHalteEstimate: 60, wait: 16},
+    { halte: 'Gb. Sipil', geoCode: [-6.893580, 107.608821], nextHalteEstimate: 120, wait: 19 },
+    { halte: 'Gb. Utama', geoCode: [-6.893182, 107.610355], nextHalteEstimate: 60, wait: 20 },
     { halte: 'Gerbang SR', geoCode: [-6.893503, 107.611932], nextHalteEstimate: 120, wait: 21 },
     { halte: 'Ali Borme', geoCode: [-6.891475, 107.613083], nextHalteEstimate: 120, wait: 1 },    
-    { halte: 'Tomoro Simpang Dago', geoCode: [-6.885669, 107.613524], nextHalteEstimate: 120, wait: 4 },    
+    { halte: 'Tomoro', geoCode: [-6.885669, 107.613524], nextHalteEstimate: 120, wait: 4 },    
     { halte: 'Darul Hikam', geoCode: [-6.879363, 107.616371], nextHalteEstimate: 120, wait: 9 },   
     { halte: 'Dago Asri', geoCode: [-6.878370, 107.614570], nextHalteEstimate: 120, wait: 17 },    
-    { halte: 'Nasi Kuning Kuah', geoCode: [-6.876664, 107.612832], nextHalteEstimate: 120, wait: 19 },    
+    { halte: 'Naskun Kuah', geoCode: [-6.876664, 107.612832], nextHalteEstimate: 120, wait: 19 },    
   ]
 
   const route = [
