@@ -1,11 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
 import { usePages } from '@src/services/PagesContext';
+import { IoMdInformationCircleOutline } from "react-icons/io";
+
 
 const Navbar = () => {
   const { 
     showMap, showHelp, showReport, showAboutUs, showRouteMap, toggleShowMap, 
-    toggleShowHelp, toggleShowReport, toggleShowAboutUs
+    toggleShowAboutUs
   } = usePages();
 
   const handleProfileClick = () => {
@@ -24,22 +26,12 @@ const Navbar = () => {
                 </button>
               ) : (
                 <>
-                  <button onClick={toggleShowHelp}>
-                    {/* <div><Image src="/images/help.svg" alt='help' width={23} height={23} /></div> */}
-                  </button>
-                  <button onClick={toggleShowReport}>
-                    {/* <div><Image src="/images/report.svg" alt='report' width={27} height={27} /></div> */}
-                  </button>        
                 </>
               )}
             </div>
             <button className='ml-[-10px] logo' onClick={toggleShowMap}>
               {!showMap && !showRouteMap ? (
-                showHelp && (
-                  <p className="text-center mt-1 ml-14 text-[18px] font-bold text-[#0078C9] font-montserrat">Pusat Bantuan</p>
-                ) || showReport && (
-                  <p className="text-center mt-1 ml-14 text-[18px] font-bold text-[#0078C9] font-montserrat">Lapor</p>
-                ) || showAboutUs && (
+                showAboutUs && (
                   <p className="text-center mt-1 ml-14 text-[18px] font-bold text-white font-montserrat">About Us</p>
                 )
               ) : (
@@ -52,7 +44,8 @@ const Navbar = () => {
             </button>
             <div className='flex items-center mb-[1px]'>
               <button onClick={handleProfileClick}>
-                <Image src="/images/info.svg" alt='more information' width={28} height={28} />
+                {/* <Image src="/images/info.svg" alt='more information' width={28} height={28} /> */}
+                <IoMdInformationCircleOutline color="white" size={28} />
               </button>
             </div>
           </div>

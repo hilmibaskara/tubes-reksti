@@ -9,7 +9,21 @@ export const MapDetailsProvider = ({ children }) => {
   // const database = useDatabase();
 
   const [location, setLocation] = useState();
-  const [shuttles, setShuttles] = useState([]);
+  const [shuttles, setShuttles] = useState([{
+    loaded: true,
+    id: 'shuttle1',
+    coordinates: {
+      lat: -6.890310,
+      lng: 107.610460
+    },
+    halte: 'Halte A',
+    status: 'On Time',
+    route: 'Blue',
+    waitingTime: 5,
+    arriveTime: '08:15',
+    error: null,
+    crowd: 'Low'
+  },]);
   const [selectedHalte, setSelectedHalte] = useState();
   const [selectedRoute, setSelectedRoute] = useState('');
 
