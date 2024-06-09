@@ -22,7 +22,6 @@ export default function Home() {
       <main>
         <PagesProvider>
           <MapDetailsProvider>
-            {/* <SplashScreen />  */}
             <div className="relative">
               <div>
                 <>
