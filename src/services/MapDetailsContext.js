@@ -11,7 +11,7 @@ export const MapDetailsProvider = ({ children }) => {
   const [selectedRoute, setSelectedRoute] = useState('');
 
   const routeMarkers = [
-    { halte: 'Cisitu Indah 1', geoCode: [-6.877011, 107.611673], nextHalteEstimate: 120, wait: 0 },
+    { halte: 'Cisitu Indah', geoCode: [-6.877011, 107.611673], nextHalteEstimate: 120, wait: 0 },
     { halte: 'WCO', geoCode: [-6.879793, 107.612052], nextHalteEstimate: 60, wait: 2 },
     { halte: 'Serbu Rame', geoCode: [-6.883251, 107.611274], nextHalteEstimate: 60, wait: 6 },
     { halte: 'Opiuci', geoCode: [-6.885811, 107.612611], nextHalteEstimate: 60, wait: 10 },
