@@ -1,6 +1,3 @@
-
-# Project Name: Tubes Reksti
-
 # Overview
 ## Description
 Penelitian ini bertujuan untuk mengembangkan Public Bus Monitoring System yang terintegrasi dan efisien menggunakan teknologi IoT. Dengan memanfaatkan sensor-sensor IoT dan sistem GPS, sistem ini memungkinkan pengguna untuk melacak lokasi bus secara real-time, memperkirakan waktu kedatangan dengan akurat, serta memantau kondisi keramaian bus. Selain itu, integrasi dengan aplikasi website memberikan kemudahan bagi pengguna dalam merencanakan perjalanan dan mengakses informasi transportasi.
